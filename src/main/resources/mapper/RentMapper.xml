@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paki.equip.dao.RentMapper" >
+  <resultMap id="BaseResultMap" type="com.paki.equip.pojo.Rent" >
+    <constructor >
+      <arg column="rentdepid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="rentmanid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="rentuse" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="returntime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rentdepid, rentmanid, rentuse, returntime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paki.equip.pojo.RentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.paki.equip.pojo.RentExample" >
+    delete from rent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <delete id="clearRent">
+      delete from rent
+      where rentmanid = #{rentmanid}
+    </delete>
+    <insert id="insert" parameterType="com.paki.equip.pojo.Rent" >
+    insert into rent (rentdepid, rentmanid, rentuse, 
+      returntime)
+    values (#{rentdepid,jdbcType=INTEGER}, #{rentmanid,jdbcType=INTEGER}, #{rentuse,jdbcType=VARCHAR}, 
+      #{returntime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paki.equip.pojo.Rent" >
+    insert into rent
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rentdepid != null" >
+        rentdepid,
+      </if>
+      <if test="rentmanid != null" >
+        rentmanid,
+      </if>
+      <if test="rentuse != null" >
+        rentuse,
+      </if>
+      <if test="returntime != null" >
+        returntime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rentdepid != null" >
+        #{rentdepid,jdbcType=INTEGER},
+      </if>
+      <if test="rentmanid != null" >
+        #{rentmanid,jdbcType=INTEGER},
+      </if>
+      <if test="rentuse != null" >
+        #{rentuse,jdbcType=VARCHAR},
+      </if>
+      <if test="returntime != null" >
+        #{returntime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.paki.equip.pojo.RentExample" resultType="java.lang.Integer" >
+    select count(*) from rent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update rent
+    <set >
+      <if test="record.rentdepid != null" >
+        rentdepid = #{record.rentdepid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rentmanid != null" >
+        rentmanid = #{record.rentmanid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rentuse != null" >
+        rentuse = #{record.rentuse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returntime != null" >
+        returntime = #{record.returntime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update rent
+    set rentdepid = #{record.rentdepid,jdbcType=INTEGER},
+      rentmanid = #{record.rentmanid,jdbcType=INTEGER},
+      rentuse = #{record.rentuse,jdbcType=VARCHAR},
+      returntime = #{record.returntime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

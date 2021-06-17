@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paki.equip.dao.DamageMapper" >
+  <resultMap id="BaseResultMap" type="com.paki.equip.pojo.Damage" >
+    <constructor >
+      <idArg column="damageid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="reason" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="agreeman" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="handleman" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="way" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="equid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    damageid, reason, agreeman, handleman, way, equid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.paki.equip.pojo.DamageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from damage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from damage
+    where damageid = #{damageid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from damage
+    where damageid = #{damageid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.paki.equip.pojo.DamageExample" >
+    delete from damage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.paki.equip.pojo.Damage" >
+    insert into damage (damageid, reason, agreeman, 
+      handleman, way, equid
+      )
+    values (#{damageid,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, #{agreeman,jdbcType=INTEGER}, 
+      #{handleman,jdbcType=INTEGER}, #{way,jdbcType=VARCHAR}, #{equid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.paki.equip.pojo.Damage" >
+    insert into damage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="damageid != null" >
+        damageid,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="agreeman != null" >
+        agreeman,
+      </if>
+      <if test="handleman != null" >
+        handleman,
+      </if>
+      <if test="way != null" >
+        way,
+      </if>
+      <if test="equid != null" >
+        equid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="damageid != null" >
+        #{damageid,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeman != null" >
+        #{agreeman,jdbcType=INTEGER},
+      </if>
+      <if test="handleman != null" >
+        #{handleman,jdbcType=INTEGER},
+      </if>
+      <if test="way != null" >
+        #{way,jdbcType=VARCHAR},
+      </if>
+      <if test="equid != null" >
+        #{equid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.paki.equip.pojo.DamageExample" resultType="java.lang.Integer" >
+    select count(*) from damage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update damage
+    <set >
+      <if test="record.damageid != null" >
+        damageid = #{record.damageid,jdbcType=INTEGER},
+      </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agreeman != null" >
+        agreeman = #{record.agreeman,jdbcType=INTEGER},
+      </if>
+      <if test="record.handleman != null" >
+        handleman = #{record.handleman,jdbcType=INTEGER},
+      </if>
+      <if test="record.way != null" >
+        way = #{record.way,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equid != null" >
+        equid = #{record.equid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update damage
+    set damageid = #{record.damageid,jdbcType=INTEGER},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      agreeman = #{record.agreeman,jdbcType=INTEGER},
+      handleman = #{record.handleman,jdbcType=INTEGER},
+      way = #{record.way,jdbcType=VARCHAR},
+      equid = #{record.equid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paki.equip.pojo.Damage" >
+    update damage
+    <set >
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeman != null" >
+        agreeman = #{agreeman,jdbcType=INTEGER},
+      </if>
+      <if test="handleman != null" >
+        handleman = #{handleman,jdbcType=INTEGER},
+      </if>
+      <if test="way != null" >
+        way = #{way,jdbcType=VARCHAR},
+      </if>
+      <if test="equid != null" >
+        equid = #{equid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where damageid = #{damageid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paki.equip.pojo.Damage" >
+    update damage
+    set reason = #{reason,jdbcType=VARCHAR},
+      agreeman = #{agreeman,jdbcType=INTEGER},
+      handleman = #{handleman,jdbcType=INTEGER},
+      way = #{way,jdbcType=VARCHAR},
+      equid = #{equid,jdbcType=INTEGER}
+    where damageid = #{damageid,jdbcType=INTEGER}
+  </update>
+</mapper>

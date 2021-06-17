@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paki.equip.dao.UseraccountMapper">
+  <resultMap id="BaseResultMap" type="com.paki.equip.pojo.Useraccount">
+    <constructor>
+      <idArg column="userid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="phonenum" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="departid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="equid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="prebacktime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    userid, username, password, phonenum, email, departid, equid, prebacktime
+  </sql>
+  <select id="selectByExample" parameterType="com.paki.equip.pojo.UseraccountExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from useraccount
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from useraccount
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from useraccount
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.paki.equip.pojo.UseraccountExample">
+    delete from useraccount
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.paki.equip.pojo.Useraccount">
+    insert into useraccount (userid, username, password, 
+      phonenum, email, departid, 
+      equid, prebacktime)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{phonenum,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{departid,jdbcType=INTEGER}, 
+      #{equid,jdbcType=INTEGER}, #{prebacktime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paki.equip.pojo.Useraccount">
+    insert into useraccount
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="phonenum != null">
+        phonenum,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="departid != null">
+        departid,
+      </if>
+      <if test="equid != null">
+        equid,
+      </if>
+      <if test="prebacktime != null">
+        prebacktime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenum != null">
+        #{phonenum,jdbcType=CHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="departid != null">
+        #{departid,jdbcType=INTEGER},
+      </if>
+      <if test="equid != null">
+        #{equid,jdbcType=INTEGER},
+      </if>
+      <if test="prebacktime != null">
+        #{prebacktime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.paki.equip.pojo.UseraccountExample" resultType="java.lang.Integer">
+    select count(*) from useraccount
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByaccount" resultType="com.paki.equip.pojo.Useraccount">
+    select
+    <include refid="Base_Column_List" />
+    from useraccount
+    <where>
+      <if test="username != null">
+        username = #{username}
+        or phonenum = #{username}
+        or email = #{username}
+        and password = #{password}
+      </if>
+    </where>
+
+  </select>
+  <select id="selectByname" resultType="com.paki.equip.pojo.Useraccount">
+    select
+    <include refid="Base_Column_List" />
+    from useraccount
+    <where>
+      <if test="username != null">
+        username = #{username}
+      </if>
+    </where>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update useraccount
+    <set>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonenum != null">
+        phonenum = #{record.phonenum,jdbcType=CHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departid != null">
+        departid = #{record.departid,jdbcType=INTEGER},
+      </if>
+      <if test="record.equid != null">
+        equid = #{record.equid,jdbcType=INTEGER},
+      </if>
+      <if test="record.prebacktime != null">
+        prebacktime = #{record.prebacktime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update useraccount
+    set userid = #{record.userid,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      phonenum = #{record.phonenum,jdbcType=CHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      departid = #{record.departid,jdbcType=INTEGER},
+      equid = #{record.equid,jdbcType=INTEGER},
+      prebacktime = #{record.prebacktime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paki.equip.pojo.Useraccount">
+    update useraccount
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenum != null">
+        phonenum = #{phonenum,jdbcType=CHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="departid != null">
+        departid = #{departid,jdbcType=INTEGER},
+      </if>
+      <if test="equid != null">
+        equid = #{equid,jdbcType=INTEGER},
+      </if>
+      <if test="prebacktime != null">
+        prebacktime = #{prebacktime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paki.equip.pojo.Useraccount">
+    update useraccount
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phonenum = #{phonenum,jdbcType=CHAR},
+      email = #{email,jdbcType=VARCHAR},
+      departid = #{departid,jdbcType=INTEGER},
+      equid = #{equid,jdbcType=INTEGER},
+      prebacktime = #{prebacktime,jdbcType=TIMESTAMP}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="returnEquip">
+      update useraccount
+      set equid = null,
+      prebacktime = null
+      where userid = #{userid}
+    </update>
+
+</mapper>
